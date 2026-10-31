@@ -149,7 +149,7 @@
   .sx-title { margin: 0 0 8px; font-size: 24px; font-weight: 700; letter-spacing: -.5px; font-style: normal; color: var(--sx-text); }
   .sx-desc { margin: 0; font-size: 13px; color: var(--sx-muted); line-height: 1.6; }
   .sx-actions { display: flex; gap: 8px; flex-shrink: 0; }
-  .sx-btn-ghost { background: transparent; border: 1px solid var(--sx-border); color: var(--sx-text); border-radius: 10px; padding: 8px 12px; font-size: 12px; cursor: pointer; font-family: inherit; }
+  .sx-btn-ghost { background: transparent; border: 1px solid var(--sx-border); color: var(--sx-text); border-radius: 10px; padding: 8px 12px; font-size: 12px; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 4px; }
   .sx-btn-ghost:active { background: var(--sx-border); }
   .sx-search { margin-bottom: 16px; }
   .sx-search input { width: 100%; background: var(--sx-card); border: 1px solid var(--sx-border); border-radius: 12px; padding: 12px 14px; color: var(--sx-text); font-size: 14px; outline: none; font-family: inherit; }
@@ -164,7 +164,7 @@
   .sx-card { background: var(--sx-card); border: 1px solid var(--sx-border); border-radius: 16px; padding: 14px; cursor: pointer; transition: .2s; display: flex; flex-direction: column; gap: 8px; }
   .sx-card:active { transform: scale(.97); background: var(--sx-card-hover); }
   .sx-card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-  .sx-icon { font-size: 22px; line-height: 1; }
+  .sx-icon { font-size: 22px; line-height: 1; display: flex; align-items: center; justify-content: center; }
   .sx-cat-badge { font-size: 10px; color: var(--sx-accent); border: 1px solid color-mix(in srgb, var(--sx-accent) 40%, transparent); padding: 2px 8px; border-radius: 999px; }
   .sx-card-title { font-size: 14px; font-weight: 600; line-height: 1.4; }
   .sx-card-desc { font-size: 12px; color: var(--sx-muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -175,25 +175,28 @@
   .sx-panel { width: 100%; max-width: 560px; background: var(--sx-bg); border: 1px solid var(--sx-border); border-radius: 22px 22px 0 0; transform: translateY(100%); transition: .3s cubic-bezier(.2,.8,.2,1); display: flex; flex-direction: column; height: 88vh; }
   .sx-detail.show .sx-panel { transform: translateY(0); }
   .sx-panel-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 20px 20px 10px; }
-  .sx-panel-head h2 { margin: 0; font-size: 20px; font-weight: 700; line-height: 1.4; font-style: normal; color: var(--sx-text); }
-  .sx-x { background: var(--sx-card); border: 1px solid var(--sx-border); color: var(--sx-text); width: 32px; height: 32px; border-radius: 50%; font-size: 18px; cursor: pointer; line-height: 1; flex-shrink: 0; }
+  .sx-panel-head h2 { margin: 0; font-size: 20px; font-weight: 700; line-height: 1.4; font-style: normal; color: var(--sx-text); display: flex; align-items: center; gap: 8px; }
+  .sx-x { background: var(--sx-card); border: 1px solid var(--sx-border); color: var(--sx-text); width: 32px; height: 32px; border-radius: 50%; font-size: 18px; cursor: pointer; line-height: 1; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
   .sx-meta { padding: 0 20px 10px; color: var(--sx-muted); font-size: 13px; line-height: 1.6; }
 
-  /* 富文本可编辑区 */
-  .sx-content-edit { flex: 1; overflow-y: auto; padding: 0 20px 20px; font-size: 14px; line-height: 1.8; color: var(--sx-text); outline: none; word-break: break-word; }
+  /* 富文本可编辑区（预览/编辑模式共用） */
+  .sx-content-edit { flex: 1; overflow-y: auto; padding: 0 20px 20px; font-size: 14px; line-height: 1.8; color: var(--sx-text); outline: none; word-break: break-word; user-select: text; }
+  .sx-content-edit:empty::before { content: attr(placeholder); color: var(--sx-muted); pointer-events: none; display: block; }
+  .sx-content-edit a { color: var(--sx-accent); text-decoration: underline; cursor: pointer; }
   .sx-content-edit img { max-width: 100%; border-radius: 8px; margin: 8px 0; display: block; }
-  .sx-content-edit a { color: var(--sx-accent); text-decoration: underline; word-break: break-all; }
   .sx-content-edit pre { background: var(--sx-card); padding: 10px; border-radius: 8px; border: 1px solid var(--sx-border); font-size: 12px; overflow-x: auto; white-space: pre-wrap; margin: 8px 0; }
 
   /* 底部工具栏 */
-  .sx-toolbar { display: flex; gap: 6px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: var(--sx-card); border-top: 1px solid var(--sx-border); overflow-x: auto; border-radius: 0 0 22px 22px; align-items: center; }
-  .sx-tool-btn { background: transparent; border: none; color: var(--sx-text); font-size: 15px; padding: 8px 12px; border-radius: 8px; cursor: pointer; white-space: nowrap; flex-shrink: 0; font-family: inherit; }
+  .sx-toolbar { display: none; gap: 6px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: var(--sx-card); border-top: 1px solid var(--sx-border); overflow-x: auto; border-radius: 0 0 22px 22px; align-items: center; }
+  .sx-toolbar.show { display: flex; }
+  .sx-tool-btn { background: transparent; border: none; color: var(--sx-text); font-size: 15px; padding: 8px 12px; border-radius: 8px; cursor: pointer; white-space: nowrap; flex-shrink: 0; font-family: inherit; display: flex; align-items: center; justify-content: center; }
+  .sx-tool-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .sx-tool-btn:active { background: var(--sx-border); }
 
   /* 添加面板 */
   .sx-field { margin-bottom: 14px; padding: 0 20px; }
   .sx-field label { display: block; font-size: 12px; color: var(--sx-muted); margin-bottom: 6px; }
-  .sx-field input, .sx-field textarea { width: 100%; background: var(--sx-card); border: 1px solid var(--sx-border); border-radius: 10px; padding: 10px 12px; color: var(--sx-text); font-size: 14px; outline: none; font-family: inherit; }
+  .sx-field input, .sx-field textarea, .sx-field select { width: 100%; background: var(--sx-card); border: 1px solid var(--sx-border); border-radius: 10px; padding: 10px 12px; color: var(--sx-text); font-size: 14px; outline: none; font-family: inherit; }
   .sx-field textarea { resize: vertical; line-height: 1.6; min-height: 100px; }
   .sx-btn-primary { width: calc(100% - 40px); margin: 10px 20px 20px; background: var(--sx-accent); color: #111; border: none; border-radius: 12px; padding: 14px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; }
   #secret-system[data-sx-theme="mint"] .sx-btn-primary, #secret-system[data-sx-theme="pink"] .sx-btn-primary, #secret-system[data-sx-theme="lavender"] .sx-btn-primary, #secret-system[data-sx-theme="sky"] .sx-btn-primary, #secret-system[data-sx-theme="peach"] .sx-btn-primary { color: #fff; }
@@ -204,7 +207,7 @@
   .sx-theme-item { border: 1px solid var(--sx-border); border-radius: 12px; padding: 16px; text-align: center; cursor: pointer; font-weight: 600; font-size: 14px; background: var(--sx-card); }
   .sx-theme-item.active { border-color: var(--sx-accent); box-shadow: 0 0 0 2px var(--sx-accent); color: var(--sx-accent); }
 
-  /* ========== 阅读器 (保持原样) ========== */
+  /* ========== 阅读器 ========== */
   #reader-system { position: fixed; inset: 0; z-index: 20000; background: var(--rd-bg, #f8f1e3); color: var(--rd-fg, #2c2825); opacity: 0; pointer-events: none; transition: opacity .3s; overflow: hidden; font-family: var(--rd-font, 'Noto Serif SC', serif); }
   #reader-system.show { opacity: 1; pointer-events: auto; }
   .reader-header { position: absolute; top: 0; left: 0; right: 0; z-index: 12; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 10px; padding-top: calc(8px + env(safe-area-inset-top)); background: var(--rd-bg); border-bottom: 1px solid var(--rd-line); transition: transform .3s, opacity .3s; font-family: var(--font-family); }
@@ -615,8 +618,7 @@
     <div class="island-info">
       <div class="island-title" id="island-title">暂无歌曲</div>
       <div class="island-artist" id="island-artist">点击播放</div>
-    </div>
-    <div class="island-controls" onclick="event.stopPropagation()">
+     <div class="island-controls" onclick="event.stopPropagation()">
       <div id="island-bars"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
       <div class="island-icon" onclick="playPrevMusic()">⏮</div>
       <div class="island-icon" id="island-play-btn" onclick="toggleMusic()">▶</div>
@@ -663,9 +665,18 @@
         <p class="sx-desc">和 AI 一起生活的那些小事，都收在这里。</p>
       </div>
       <div class="sx-actions">
-        <button class="sx-btn-ghost" onclick="openSxTheme()">🎨 主题</button>
-        <button class="sx-btn-ghost" onclick="openSecretAdd()">＋ 添加</button>
-        <button class="sx-btn-ghost" onclick="lockSecret()">锁定</button>
+        <button class="sx-btn-ghost" onclick="openSxTheme()">
+          <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+          主题
+        </button>
+        <button class="sx-btn-ghost" onclick="openSecretAdd()">
+          <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          添加
+        </button>
+        <button class="sx-btn-ghost" onclick="lockSecret()">
+          <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          锁定
+        </button>
       </div>
     </div>
 
@@ -677,7 +688,7 @@
     <div class="sx-grid" id="secret-list"></div>
   </div>
 
-  <!-- 详情编辑面板 -->
+  <!-- 详情 / 编辑 面板 -->
   <div class="sx-detail" id="secret-detail" onclick="if(event.target===this)closeSecretDetail()">
     <div class="sx-panel">
       <div class="sx-panel-head">
@@ -685,23 +696,45 @@
           <div class="sx-eyebrow" id="sx-detail-cat"></div>
           <h2 id="sx-detail-title"></h2>
         </div>
-        <button class="sx-x" onclick="closeSecretDetail()">×</button>
+        <div style="display:flex;gap:8px;">
+          <button class="sx-x" onclick="toggleSecretEditMode()" id="sx-btn-edit-toggle" title="切换预览/编辑">
+            <svg id="sx-icon-preview" style="display:none;width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg id="sx-icon-edit" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </button>
+          <button class="sx-x" onclick="closeSecretDetail()">×</button>
+        </div>
       </div>
       <div class="sx-meta" id="sx-detail-desc"></div>
       
-      <!-- 富文本内容区（点击即可直接编辑） -->
-      <div class="sx-content-edit" id="sx-detail-content" contenteditable="true" placeholder="开始输入内容..."></div>
+      <!-- 富文本内容区（点击即可直接编辑，预览时不可编辑但可点击链接） -->
+      <div class="sx-content-edit" id="sx-detail-content" contenteditable="false" placeholder="这里还没有内容，点右上角编辑开始输入..."></div>
       
-      <!-- 底部工具栏 -->
-      <div class="sx-toolbar">
-        <button class="sx-tool-btn" onclick="execFormat('bold')"><b>B</b></button>
-        <button class="sx-tool-btn" onclick="execFormat('italic')"><i>I</i></button>
-        <button class="sx-tool-btn" onclick="execFormat('underline')"><u>U</u></button>
-        <button class="sx-tool-btn" onclick="execFormat('insertUnorderedList')">• 列表</button>
-        <button class="sx-tool-btn" onclick="insertCheckbox()">☑️ 待办</button>
-        <button class="sx-tool-btn" onclick="insertLine()">—</button>
-        <button class="sx-tool-btn" onclick="insertImageOrFile()">🖼️ 文件</button>
-        <button class="sx-tool-btn" onclick="saveSecretEdit()" style="margin-left:auto; color:var(--sx-accent); font-weight:bold;">保存</button>
+      <!-- 底部工具栏（仅在编辑模式下显示） -->
+      <div class="sx-toolbar" id="sx-edit-toolbar">
+        <button class="sx-tool-btn" onclick="execFormat('bold')" title="加粗">
+          <svg viewBox="0 0 24 24"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/></svg>
+        </button>
+        <button class="sx-tool-btn" onclick="execFormat('italic')" title="斜体">
+          <svg viewBox="0 0 24 24"><line x1="19" y1="4" x2="10" y2="4"/><line x1="14" y1="20" x2="5" y2="20"/><line x1="15" y1="4" x2="9" y2="20"/></svg>
+        </button>
+        <button class="sx-tool-btn" onclick="execFormat('underline')" title="下划线">
+          <svg viewBox="0 0 24 24"><path d="M6 3v7a6 6 0 0 0 6 6 6 6 0 0 0 6-6V3"/><line x1="4" y1="21" x2="20" y2="21"/></svg>
+        </button>
+        <button class="sx-tool-btn" onclick="execFormat('insertUnorderedList')" title="无序列表">
+          <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </button>
+        <button class="sx-tool-btn" onclick="insertCheckbox()" title="待办">
+          <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </button>
+        <button class="sx-tool-btn" onclick="insertLine()" title="分割线">
+          <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/></svg>
+        </button>
+        <button class="sx-tool-btn" onclick="insertImageOrFile()" title="插入文件或图片">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </button>
+        <button class="sx-tool-btn" onclick="saveSecretEdit()" style="margin-left:auto; color:var(--sx-accent); font-weight:bold;" title="保存修改">
+          <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        </button>
       </div>
     </div>
   </div>
@@ -757,7 +790,7 @@
   </div>
   <div class="reader-content-wrapper" id="reader-body-wrapper">
     <div class="reader-scroll" id="reader-scroll-view">
-            <div class="reader-article" id="reader-scroll-text"></div>
+      <div class="reader-article" id="reader-scroll-text"></div>
     </div>
     <div class="reader-page" id="reader-page-view" style="display:none;">
       <div class="page-clip" id="page-clip"><div class="reader-article page-cols" id="reader-page-text"></div></div>
@@ -1277,13 +1310,13 @@ function kindOf(name, type) { if ((type||'').startsWith('image/') || ['png','jpg
 function decodeText(buffer) { let text = new TextDecoder('utf-8').decode(buffer); if (text.includes('\uFFFD') || text.includes('锟斤拷') || text.includes('鐨')) { try { const gbkText = new TextDecoder('gbk').decode(buffer); if (!gbkText.includes('\uFFFD')) return gbkText; } catch (e) {} } return text; }
 
 /* ========== 人机恋素材库（富文本版） ========== */
-const SECRET_KEY = 'secret-library-rich-v1';
+const SECRET_KEY = 'secret-library-rich-v2';
 let secretItems = safeJSON(localStorage.getItem(SECRET_KEY), []);
 let secretCat = '全部';
 let currentSecretId = null;
 let savedRange = null;
+let isEditMode = false;
 
-// 初始化主题
 function initSxTheme() {
   const savedTheme = localStorage.getItem('sx-theme') || 'dark';
   setSxTheme(savedTheme);
@@ -1315,7 +1348,7 @@ function renderSecretList() {
   $('secret-list').innerHTML = arr.length ? arr.map(i => `
     <div class="sx-card" onclick="openSecretDetail('${i.id}')">
       <div class="sx-card-top">
-        <span class="sx-icon">${esc(i.icon || '📌')}</span>
+        <span class="sx-icon">${i.icon && i.icon.length <= 2 ? i.icon : '<svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>'}</span>
         ${i.cat ? `<span class="sx-cat-badge">${esc(i.cat)}</span>` : ''}
       </div>
       <div class="sx-card-title">${esc(i.title)}</div>
@@ -1329,20 +1362,65 @@ function openSecretDetail(id) {
   const item = secretItems.find(i => i.id === id); if (!item) return;
   currentSecretId = id;
   $('sx-detail-cat').textContent = item.cat || '';
-  $('sx-detail-title').textContent = item.icon + ' ' + item.title;
+  $('sx-detail-title').innerHTML = (item.icon && item.icon.length <= 2 ? item.icon + ' ' : '') + esc(item.title);
   $('sx-detail-desc').textContent = item.desc || '';
+  
   const contentEl = $('sx-detail-content');
   contentEl.innerHTML = item.content || '';
-  contentEl.onfocus = () => saveSelection();
-  contentEl.onblur = () => saveSelection();
-  contentEl.onkeyup = () => saveSelection();
-  contentEl.onmouseup = () => saveSelection();
+  
+  // 默认进入预览模式
+  setSecretEditMode(false);
+  
   $('secret-detail').classList.add('show');
 }
 function closeSecretDetail() { 
   $('secret-detail').classList.remove('show'); 
   currentSecretId = null; 
 }
+
+function setSecretEditMode(edit) {
+  isEditMode = edit;
+  const contentEl = $('sx-detail-content');
+  const toolbar = $('sx-edit-toolbar');
+  const iconPreview = $('sx-icon-preview');
+  const iconEdit = $('sx-icon-edit');
+  
+  if (isEditMode) {
+    contentEl.setAttribute('contenteditable', 'true');
+    toolbar.classList.add('show');
+    iconPreview.style.display = 'block';
+    iconEdit.style.display = 'none';
+    contentEl.focus();
+    
+    // 绑定保存选区事件
+    contentEl.onfocus = saveSelection;
+    contentEl.onblur = saveSelection;
+    contentEl.onkeyup = saveSelection;
+    contentEl.onmouseup = saveSelection;
+  } else {
+    contentEl.setAttribute('contenteditable', 'false');
+    toolbar.classList.remove('show');
+    iconPreview.style.display = 'none';
+    iconEdit.style.display = 'block';
+    
+    // 清除选区绑定
+    contentEl.onfocus = null;
+    contentEl.onblur = null;
+    contentEl.onkeyup = null;
+    contentEl.onmouseup = null;
+  }
+}
+
+function toggleSecretEditMode() {
+  if (isEditMode) {
+    // 退出编辑模式自动保存
+    saveSecretEdit();
+    setSecretEditMode(false);
+  } else {
+    setSecretEditMode(true);
+  }
+}
+
 function saveSecretEdit() {
   if (!currentSecretId) return;
   const item = secretItems.find(i => i.id === currentSecretId);
@@ -1394,25 +1472,24 @@ async function handleAttachment(e) {
   const file = e.target.files[0]; if (!file) return;
   const kind = kindOf(file.name, file.type);
   
-  if (kind === 'image') {
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      restoreSelection();
-      const html = `<img src="${ev.target.result}" alt="${esc(file.name)}">`;
-      document.execCommand('insertHTML', false, html);
-      saveSelection();
-      toast('图片已插入');
-    };
-    reader.readAsDataURL(file);
-  } else {
-    // 非图片文件提供下载链接
-    const url = URL.createObjectURL(file);
+  const reader = new FileReader();
+  reader.onload = (ev) => {
     restoreSelection();
-    const html = `<div style="margin:8px 0;"><a href="${url}" download="${esc(file.name)}" target="_blank">📄 下载文件：${esc(file.name)} (${fmtSize(file.size)})</a></div>`;
+    const dataUrl = ev.target.result;
+    let html = '';
+    
+    if (kind === 'image') {
+      html = `<img src="${dataUrl}" alt="${esc(file.name)}" style="cursor:pointer;" onclick="window.open('${dataUrl}', '_blank')">`;
+    } else {
+      // 转换为 base64，确保刷新或导出后文件依然可点击
+      html = `<div style="margin:8px 0;"><a href="${dataUrl}" download="${esc(file.name)}" target="_blank" style="display:inline-flex; align-items:center; gap:6px; padding:8px 12px; background:var(--sx-card); border:1px solid var(--sx-border); border-radius:8px; color:var(--sx-text); text-decoration:none;"><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> 下载文件：${esc(file.name)}</a></div>`;
+    }
+    
     document.execCommand('insertHTML', false, html);
     saveSelection();
-    toast('文件已插入');
-  }
+    toast(kind === 'image' ? '图片已插入' : '文件已插入');
+  };
+  reader.readAsDataURL(file);
 }
 
 // 添加面板
@@ -1426,7 +1503,7 @@ function saveSecretItem() {
   const cat = $('sx-add-cat').value.trim(); 
   const icon = $('sx-add-icon').value.trim() || '📌';
   const desc = $('sx-add-desc').value.trim();
-  let content = $('sx-add-content').value; // 如果文本框只写文字，后期可以转为HTML
+  let content = $('sx-add-content').value; 
   content = esc(content).replace(/\n/g, '<br>'); 
 
   secretItems.unshift({ id: 's' + Date.now().toString(36), cat, icon, title, desc, content });
@@ -1786,7 +1863,8 @@ const JOURNAL_THEMES = [
   { id: 'sunset', name: '落日余晖', dot: 'background:linear-gradient(135deg,#ff9a8b,#ffd3a5)' }
 ];
 let currentMood = '';
-function renderJournalThemes() { $('notebook-selector').innerHTML = JOURNAL_THEMES.map(t => `<div class="notebook-option ${t.id === currentJournalTheme ? 'active' : ''}" data-theme="${t.id}" onclick="setJournalTheme('${t.id}')"><div class="notebook-dot" style="${t.dot}"></div>${t.name}</div>`).join(''); }
+function renderJournalThemes() { $('notebook-selector').innerHTML = JOURNAL    _THEMES.map(t => `<div class="notebook-option ${t.id === currentJournalTheme ? 'active' : ''}" data-theme="${t.id}" onclick="setJournalTheme('${t.id}')"><div class="notebook-dot" style="${t.dot}"></div>${t.name}</div>`).join(''); 
+}
 function renderMoodRow() { $('mood-row').innerHTML = MOODS.map(m => `<button type="button" class="mood-btn ${m === currentMood ? 'active' : ''}" onclick="setMood('${m}')">${m}</button>`).join(''); }
 function setMood(m) { currentMood = currentMood === m ? '' : m; renderMoodRow(); saveDraft(); }
 function updateJCount() { $('j-count').textContent = $('j-content').value.length + ' 字'; saveDraft(); }
@@ -1858,17 +1936,10 @@ function render() {
   if (catSel && currentTab !== 'log') { const cats = new Set(items.filter(i => (i.type || 'character') === currentTab && i.category).map(i => i.category)); const cur = catSel.value; catSel.innerHTML = '<option value="">全部分类</option>' + [...cats].map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join(''); catSel.value = cur; }
   const keywords = q ? q.split(/\s+/) : [];
   const filtered = items.filter(i => { if ((i.type || 'character') !== currentTab) return false; if (cat && i.category !== cat) return false; if (currentAuthorFilter && i.author !== currentAuthorFilter) return false; if (currentTab === 'log' && logMoodFilter && i.mood !== logMoodFilter) return false; if (keywords.length === 0) return true; const haystack = [i.name, i.author, i.source, (i.tags || []).join(' '), i.note, i.fileName, i.mark].join(' ').toLowerCase(); return keywords.every(kw => haystack.includes(kw)); }).sort(getSortFn());
-  if (filtered.length === 0){      listEl.innerHTML = `<div class="empty-state">没有找到匹配的内容。</div>`; 
-      return; 
-  }
-  
+  if (filtered.length === 0) { listEl.innerHTML = `<div class="empty-state">没有找到匹配的内容。</div>`; return; }
   listEl.innerHTML = filtered.map(item => {
     const markHTML = item.mark ? `<span class="mark-badge ${getMarkClass(item.mark)}">${esc(item.mark)}</span>` : ''; const isChecked = selectedIds.includes(item.id);
-    if (currentTab === 'log') { 
-      const dateStr = new Date(item.createdAt).toLocaleDateString(); 
-      const themeClass = `theme-${item.logTheme || 'paper'}`; 
-      return `<div class="list-card log-card ${themeClass}" onclick="showActionSheet('${item.id}')"><h3>${item.mood ? item.mood + ' ' : ''}${esc(item.name || '无标题')}</h3><div class="log-meta">${dateStr} · ${(item.note || '').length} 字 · 关联: ${esc(item.author || '无')}</div><div class="log-content">${esc(item.note || '')}</div></div>`; 
-    }
+    if (currentTab === 'log') { const dateStr = new Date(item.createdAt).toLocaleDateString(); const themeClass = `theme-${item.logTheme || 'paper'}`; return `<div class="list-card log-card ${themeClass}" onclick="showActionSheet('${item.id}')"><h3>${item.mood ? item.mood + ' ' : ''}${esc(item.name || '无标题')}</h3><div class="log-meta">${dateStr} · ${(item.note || '').length} 字 · 关联: ${esc(item.author || '无')}</div><div class="log-content">${esc(item.note || '')}</div></div>`; }
 
     let iconHTML = '';
     if (item.coverData) { const coverUrl = URL.createObjectURL(new Blob([item.coverData], { type: item.coverType || 'image/*' })); objectURLs.push(coverUrl); iconHTML = `<img src="${coverUrl}" alt="">`; }
@@ -2012,3 +2083,4 @@ function scrollToBottom() { const c = document.getElementById('chat-container');
 </script>
 </body>
 </html>
+    
