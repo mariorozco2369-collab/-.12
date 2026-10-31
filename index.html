@@ -618,7 +618,8 @@
     <div class="island-info">
       <div class="island-title" id="island-title">暂无歌曲</div>
       <div class="island-artist" id="island-artist">点击播放</div>
-     <div class="island-controls" onclick="event.stopPropagation()">
+    </div> <!-- 补上了漏掉的闭合标签 -->
+    <div class="island-controls" onclick="event.stopPropagation()">
       <div id="island-bars"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
       <div class="island-icon" onclick="playPrevMusic()">⏮</div>
       <div class="island-icon" id="island-play-btn" onclick="toggleMusic()">▶</div>
@@ -1863,8 +1864,7 @@ const JOURNAL_THEMES = [
   { id: 'sunset', name: '落日余晖', dot: 'background:linear-gradient(135deg,#ff9a8b,#ffd3a5)' }
 ];
 let currentMood = '';
-function renderJournalThemes() { $('notebook-selector').innerHTML = JOURNAL    _THEMES.map(t => `<div class="notebook-option ${t.id === currentJournalTheme ? 'active' : ''}" data-theme="${t.id}" onclick="setJournalTheme('${t.id}')"><div class="notebook-dot" style="${t.dot}"></div>${t.name}</div>`).join(''); 
-}
+function renderJournalThemes() { $('notebook-selector').innerHTML = JOURNAL_THEMES.map(t => `<div class="notebook-option ${t.id === currentJournalTheme ? 'active' : ''}" data-theme="${t.id}" onclick="setJournalTheme('${t.id}')"><div class="notebook-dot" style="${t.dot}"></div>${t.name}</div>`).join(''); }
 function renderMoodRow() { $('mood-row').innerHTML = MOODS.map(m => `<button type="button" class="mood-btn ${m === currentMood ? 'active' : ''}" onclick="setMood('${m}')">${m}</button>`).join(''); }
 function setMood(m) { currentMood = currentMood === m ? '' : m; renderMoodRow(); saveDraft(); }
 function updateJCount() { $('j-count').textContent = $('j-content').value.length + ' 字'; saveDraft(); }
@@ -2083,4 +2083,3 @@ function scrollToBottom() { const c = document.getElementById('chat-container');
 </script>
 </body>
 </html>
-    
